@@ -24,12 +24,12 @@ public class AddressbookRepository {
 
     public List<Contact> findAll(int startIndex){
         List<Object> contactList = redisTemplate.opsForList().range("contactlist", 
-                startIndex, 10);
+                startIndex, 10); 
         List<Contact> ctcs = redisTemplate.opsForHash()
             .multiGet("addressbookmap", contactList)
             .stream()
-            .filter(Contact.class::isInstance)
-            .map(Contact.class::cast)
+            .filter(Contact.class::isInstance) //filter out the objects in the stream that is not an instance of Contact class
+            .map(Contact.class::cast) //cast the objects in the stream to Contact class
             .toList();
 
         return ctcs;
