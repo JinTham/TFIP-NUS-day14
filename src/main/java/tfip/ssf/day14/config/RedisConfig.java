@@ -46,6 +46,7 @@ public class RedisConfig {
         final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient); //Construct a factory
         jedisFac.afterPropertiesSet(); //Set the properties for the factory
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(jedisFac);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         RedisSerializer<Object> objSerializer = new JdkSerializationRedisSerializer(getClass().getClassLoader());
@@ -54,3 +55,5 @@ public class RedisConfig {
         return redisTemplate;
     }
 }
+
+
